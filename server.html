@@ -450,10 +450,10 @@
 
             // Server status functionality
             const servers = [
-                { id: 'hub', name: 'Hub Server', port: '19132' },
-                { id: 'fantasy', name: 'Fantasy Server', port: '19140' },
-                { id: 'vanilla', name: 'Vanilla Server', port: '19135' },
-                { id: 'bedwars', name: 'Bed Wars Server', port: '19150' }
+                { id: 'hub', name: 'Hub Server', port: '19132', displayIp: 'mc.kaidosmp.kesug.com:19132', apiIp: 'mc.kaidosmp.kesug.com' },
+                { id: 'fantasy', name: 'Fantasy Server', port: '19140', displayIp: 'mc.kaidosmp.kesug.com:19140', apiIp: 'mc.kaidosmp.kesug.com' },
+                { id: 'vanilla', name: 'Vanilla Server', port: '19135', displayIp: 'mc.kaidosmp.kesug.com:19135', apiIp: 'node.servermc.my.id' },
+                { id: 'bedwars', name: 'Bed Wars Server', port: '19150', displayIp: 'mc.kaidosmp.kesug.com:19150', apiIp: 'node.servermc.my.id' }
             ];
 
             const refreshButton = document.getElementById('refresh-button');
@@ -490,8 +490,8 @@
                 }
             }
 
-            function fetchServerStatus(serverId, port) {
-                fetch(`https://api.mcstatus.io/v2/status/bedrock/mc.kaidosmp.kesug.com:${port}`)
+            function fetchServerStatus(serverId, port, apiIp) {
+                fetch(`https://api.mcstatus.io/v2/status/bedrock/${apiIp}:${port}`)
                     .then(response => response.json())
                     .then(data => {
                         updateServerStatus(serverId, data);
@@ -508,7 +508,7 @@
 
             function refreshAllServers() {
                 servers.forEach(server => {
-                    fetchServerStatus(server.id, server.port);
+                    fetchServerStatus(server.id, server.port, server.apiIp);
                 });
             }
 
